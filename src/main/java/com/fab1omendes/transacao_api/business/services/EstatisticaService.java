@@ -5,18 +5,18 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.fab1omendes.transacao_api.controller.dtos.EstatisticasResponseDTO;
+import com.fab1omendes.transacao_api.controller.dtos.EstatisticaResponseDTO;
 import com.fab1omendes.transacao_api.controller.dtos.TransacaoRequestDTO;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EstatisticasService {
+public class EstatisticaService {
 
     public final TransacaoService transacaoService; 
 
-    public EstatisticasResponseDTO calcularEstatisticas(Integer intervaloBusca) {
+    public EstatisticaResponseDTO calcularEstatisticas(Integer intervaloBusca) {
 
        List<TransacaoRequestDTO> transacoes = transacaoService.buscarTransacoes(intervaloBusca);
 
@@ -24,7 +24,7 @@ public class EstatisticasService {
                 .mapToDouble(TransacaoRequestDTO::valor)
                 .summaryStatistics(); 
 
-        return new EstatisticasResponseDTO(
+        return new EstatisticaResponseDTO(
             estatisticasTransacoes.getCount(),
             estatisticasTransacoes.getSum(),
             estatisticasTransacoes.getAverage(),
