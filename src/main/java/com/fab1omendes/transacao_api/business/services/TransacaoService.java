@@ -3,7 +3,6 @@ package com.fab1omendes.transacao_api.business.services;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -37,14 +36,16 @@ public class TransacaoService {
     }
 
     public void limparTransacoes() {
+        log.info("Iniciado limpeza de transações");
         listaTransacoes.clear();
         log.info("Transações limpas com sucesso");
     }
 
     public List<TransacaoRequestDTO> buscarTransacoes(Integer intervaloBusca) {
-        log.info("Buscando transações");
+        log.info("Buscando transações por tempo {} segundos", intervaloBusca);
         OffsetDateTime dataIntervalo = OffsetDateTime.now().minusSeconds(intervaloBusca);
-        
+
+        log.info("Retorno de transações com sucesso");
         return listaTransacoes.stream()
                 .filter(transacao -> transacao.dataHora().isAfter(dataIntervalo)).toList();
     }
